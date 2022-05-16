@@ -25,6 +25,8 @@ jobs:
         run: |
           yarn install
           yarn build
+      - name: Deploy
+        run: |
           ls -la dist
 
 #  publish:
