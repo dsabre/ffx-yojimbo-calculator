@@ -13,17 +13,21 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ## Project Setup
 
 ```sh
-npm install
+yarn install
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
-npm run dev
+yarn dev
 ```
 
 ### Compile and Minify for Production
 
 ```sh
-npm run build
+yarn build
 ```
+
+##Based on
+
+https://allgamestaff.altervista.org/final-fantasy-x/yojimbo-motivazione-affinita-zanmato/
