@@ -21,9 +21,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
-      - run: yarn install
-      - run: yarn build
-      - run: ls -la dist
+      - name: Build
+        run: |
+          yarn install
+          yarn build
+          ls -la dist
 
 #  publish:
 #    runs-on: ubuntu-latest
