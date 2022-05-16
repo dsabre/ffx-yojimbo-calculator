@@ -9,18 +9,34 @@ on:
     branches: [main]
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
       - run: yarn install
       - run: yarn build
-      - name: GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2.5.0
-        with:
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: ls -la
+
+#  publish:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v2
+#        with:
+#          node-version: 14
+#      - run: yarn install
+#      - run: yarn build
+#      - name: GitHub Pages
+#        uses: crazy-max/ghaction-github-pages@v2.5.0
+#        with:
+#          build_dir: dist
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
