@@ -13,5 +13,5 @@ export default defineConfig({
 			'@': fileURLToPath(new URL('./src', import.meta.url))
 		}
 	},
-	base:    "/ffx-yojimbo-calculator/"
+	base:    process.env.NODE_ENV === 'production' ? '/ffx-yojimbo-calculator/' : ''
 })
