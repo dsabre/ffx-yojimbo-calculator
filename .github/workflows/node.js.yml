@@ -9,7 +9,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,9 +25,11 @@ jobs:
         run: |
           yarn install
           yarn build
-      - name: Deploy
-        run: |
-          ls -la dist
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: dist
 
 #  publish:
 #    runs-on: ubuntu-latest
