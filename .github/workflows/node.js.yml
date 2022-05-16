@@ -23,7 +23,7 @@ jobs:
           cache: 'npm'
       - run: yarn install
       - run: yarn build
-      - run: ls -la /dist
+      - run: ls -la dist
 
 #  publish:
 #    runs-on: ubuntu-latest
