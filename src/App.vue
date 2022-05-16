@@ -197,7 +197,7 @@ onMounted(() => {
                             <label for="zanmatoLevel">Livello Zanmato {{zanmatoLevel}}</label>
                             <input type="range" id="zanmatoLevel" v-model="zanmatoLevel" :min="zanmatoLevelSettings.min"
                                    :max="zanmatoLevelSettings.max" @input="reloadData"
-                                   class="block p-2 text-black rounded w-full"
+                                   class="block w-full"
                             >
 <!--                            <input type="number" id="zanmatoLevel" placeholder="Livello Zanmato"-->
 <!--                                   v-model="zanmatoLevel" :min="zanmatoLevelSettings.min"-->
@@ -210,7 +210,7 @@ onMounted(() => {
                             <label for="randomValue">Valore random ({{randomValue}})</label>
                             <input type="range" id="randomValue" v-model="randomValue" :min="randomValueSettings.min"
                                    :max="randomValueSettings.max" @input="reloadData"
-                                   class="block p-2 text-black rounded w-full"
+                                   class="block w-full"
                             >
 <!--                            <input type="number" id="randomValue" placeholder="Valore random"-->
 <!--                                   v-model="randomValue" :min="randomValueSettings.min"-->
@@ -246,12 +246,14 @@ onMounted(() => {
                         <div class="space-y-1 order-first sm:order-last">
                             <hr class="sm:hidden">
                             <h2 class="text-xl">Modificatori affinità</h2>
-                            <button v-for="action in affinityChanges"
-                                    class="block w-full text-gray-100 p-2 rounded bg-purple-500 hover:bg-purple-600"
-                                    @click="changeAffinity(action)"
-                            >
-                                {{ action.label }} ({{ action.value > 0 ? '+' : '' }}{{ action.value }})
-                            </button>
+                            <div class="space-y-2 sm:space-y-1">
+                                <button v-for="action in affinityChanges"
+                                        class="block w-full text-gray-100 p-2 rounded bg-purple-500 hover:bg-purple-600"
+                                        @click="changeAffinity(action)"
+                                >
+                                    {{ action.label }} ({{ action.value > 0 ? '+' : '' }}{{ action.value }})
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
