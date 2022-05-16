@@ -194,22 +194,30 @@ onMounted(() => {
                             >
                         </div>
                         <div>
-                            <label for="zanmatoLevel">Livello Zanmato</label>
-                            <input type="number" id="zanmatoLevel" placeholder="Livello Zanmato"
-                                   v-model="zanmatoLevel" :min="zanmatoLevelSettings.min"
-                                   :max="zanmatoLevelSettings.max"
-                                   @change="reloadData" @keyup="reloadData"
+                            <label for="zanmatoLevel">Livello Zanmato {{zanmatoLevel}}</label>
+                            <input type="range" id="zanmatoLevel" v-model="zanmatoLevel" :min="zanmatoLevelSettings.min"
+                                   :max="zanmatoLevelSettings.max" @input="reloadData"
                                    class="block p-2 text-black rounded w-full"
                             >
+<!--                            <input type="number" id="zanmatoLevel" placeholder="Livello Zanmato"-->
+<!--                                   v-model="zanmatoLevel" :min="zanmatoLevelSettings.min"-->
+<!--                                   :max="zanmatoLevelSettings.max"-->
+<!--                                   @change="reloadData" @keyup="reloadData"-->
+<!--                                   class="block p-2 text-black rounded w-full"-->
+<!--                            >-->
                         </div>
                         <div>
-                            <label for="randomValue">Valore random</label>
-                            <input type="number" id="randomValue" placeholder="Valore random"
-                                   v-model="randomValue" :min="randomValueSettings.min"
-                                   :max="randomValueSettings.max"
-                                   @change="reloadData" @keyup="reloadData"
+                            <label for="randomValue">Valore random ({{randomValue}})</label>
+                            <input type="range" id="randomValue" v-model="randomValue" :min="randomValueSettings.min"
+                                   :max="randomValueSettings.max" @input="reloadData"
                                    class="block p-2 text-black rounded w-full"
                             >
+<!--                            <input type="number" id="randomValue" placeholder="Valore random"-->
+<!--                                   v-model="randomValue" :min="randomValueSettings.min"-->
+<!--                                   :max="randomValueSettings.max"-->
+<!--                                   @change="reloadData" @keyup="reloadData"-->
+<!--                                   class="block p-2 text-black rounded w-full"-->
+<!--                            >-->
                         </div>
                         <div class="space-x-1">
                             <input type="checkbox" id="hasTurbo" @change="reloadData" v-model="hasTurbo">
