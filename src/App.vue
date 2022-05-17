@@ -35,6 +35,7 @@ const motivations          = [
     {from: 268435456, to: 536870911, value: 54},
     {from: 536870912, to: 999999999, value: 56},
 ];
+const guilsLowest          = motivations.map(m => m.from);
 const affinityChanges      = [
     {label: 'Non pagato', value: -20},
     {label: 'Yojimbo muore', value: -10},
@@ -168,22 +169,32 @@ onMounted(() => {
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div class="space-y-2">
-                        <div>
-                            <label for="guils">Guil pagati</label>
-                            <input type="number" id="guils" placeholder="Guil pagati"
-                                   v-model="guils" :min="guilsSettings.min" :max="guilsSettings.max"
-                                   @change="reloadData" @keyup="reloadData"
-                                   class="block p-2 text-black rounded w-full"
+                        <div v-if="zanmatoPath === 0">
+                            <label for="guils0">Guil pagati</label>
+                            <select id="guils0" class="block p-2 text-black rounded w-full"
+                                    v-model="guils" @change="reloadData"
                             >
+<!--                                <option value="">Guil pagati</option>-->
+                                <option v-for="g in guilsLowest" :value="g">{{ g }}</option>
+                            </select>
                         </div>
-                        <div>
-                            <label for="guilsRemaining">Guil rimanenti</label>
-                            <input type="number" id="guilsRemaining" placeholder="Guil rimanenti"
-                                   v-model="guilsRemaining" :min="guilsSettings.min" :max="guilsSettings.max"
-                                   @change="reloadData" @keyup="reloadData"
-                                   :disabled="zanmatoPath === 0"
-                                   class="block p-2 text-black rounded w-full"
-                            >
+                        <div v-else>
+                            <div>
+                                <label for="guils1">Guil pagati</label>
+                                <input type="number" id="guils1" placeholder="Guil pagati"
+                                       v-model="guils" :min="guilsSettings.min" :max="guilsSettings.max"
+                                       @change="reloadData" @keyup="reloadData"
+                                       class="block p-2 text-black rounded w-full"
+                                >
+                            </div>
+                            <div>
+                                <label for="guilsRemaining">Guil rimanenti</label>
+                                <input type="number" id="guilsRemaining" placeholder="Guil rimanenti"
+                                       v-model="guilsRemaining" :min="guilsSettings.min" :max="guilsSettings.max"
+                                       @change="reloadData" @keyup="reloadData"
+                                       class="block p-2 text-black rounded w-full"
+                                >
+                            </div>
                         </div>
                         <div>
                             <label for="affinity">Affinità</label>
@@ -194,30 +205,30 @@ onMounted(() => {
                             >
                         </div>
                         <div>
-                            <label for="zanmatoLevel">Livello Zanmato {{zanmatoLevel}}</label>
+                            <label for="zanmatoLevel">Livello Zanmato {{ zanmatoLevel }}</label>
                             <input type="range" id="zanmatoLevel" v-model="zanmatoLevel" :min="zanmatoLevelSettings.min"
                                    :max="zanmatoLevelSettings.max" @input="reloadData"
                                    class="block w-full"
                             >
-<!--                            <input type="number" id="zanmatoLevel" placeholder="Livello Zanmato"-->
-<!--                                   v-model="zanmatoLevel" :min="zanmatoLevelSettings.min"-->
-<!--                                   :max="zanmatoLevelSettings.max"-->
-<!--                                   @change="reloadData" @keyup="reloadData"-->
-<!--                                   class="block p-2 text-black rounded w-full"-->
-<!--                            >-->
+                            <!--                            <input type="number" id="zanmatoLevel" placeholder="Livello Zanmato"-->
+                            <!--                                   v-model="zanmatoLevel" :min="zanmatoLevelSettings.min"-->
+                            <!--                                   :max="zanmatoLevelSettings.max"-->
+                            <!--                                   @change="reloadData" @keyup="reloadData"-->
+                            <!--                                   class="block p-2 text-black rounded w-full"-->
+                            <!--                            >-->
                         </div>
                         <div>
-                            <label for="randomValue">Valore random ({{randomValue}})</label>
+                            <label for="randomValue">Valore random ({{ randomValue }})</label>
                             <input type="range" id="randomValue" v-model="randomValue" :min="randomValueSettings.min"
                                    :max="randomValueSettings.max" @input="reloadData"
                                    class="block w-full"
                             >
-<!--                            <input type="number" id="randomValue" placeholder="Valore random"-->
-<!--                                   v-model="randomValue" :min="randomValueSettings.min"-->
-<!--                                   :max="randomValueSettings.max"-->
-<!--                                   @change="reloadData" @keyup="reloadData"-->
-<!--                                   class="block p-2 text-black rounded w-full"-->
-<!--                            >-->
+                            <!--                            <input type="number" id="randomValue" placeholder="Valore random"-->
+                            <!--                                   v-model="randomValue" :min="randomValueSettings.min"-->
+                            <!--                                   :max="randomValueSettings.max"-->
+                            <!--                                   @change="reloadData" @keyup="reloadData"-->
+                            <!--                                   class="block p-2 text-black rounded w-full"-->
+                            <!--                            >-->
                         </div>
                         <div class="space-x-1">
                             <input type="checkbox" id="hasTurbo" @change="reloadData" v-model="hasTurbo">
