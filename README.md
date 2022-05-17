@@ -28,6 +28,6 @@ yarn dev
 yarn build
 ```
 
-##Based on
+## Based on
 
 https://allgamestaff.altervista.org/final-fantasy-x/yojimbo-motivazione-affinita-zanmato/
