@@ -1,8 +1,8 @@
 <script setup>
 import {ref} from "vue";
 
-const ID_CHECKBOX = `checkbox${[Date.now(), Math.random()].join('').split('.').join('')}`;
-const props       = defineProps({
+const ID_CHECKBOX   = `checkbox${[Date.now(), Math.random()].join('').split('.').join('')}`;
+const props         = defineProps({
     defaultValue: {type: Boolean, default: false},
     opt1:         {type: String, default: ''},
     opt2:         {type: String, default: ''},
@@ -11,12 +11,18 @@ const props       = defineProps({
         }
     },
 });
-const isChecked   = ref(props.defaultValue);
-const doChange    = () => props.onChange(isChecked.value);
+const isChecked     = ref(props.defaultValue);
+const switchLabel   = ref();
+const doChange      = () => props.onChange(isChecked.value);
+const clickOnSwitch = () => {
+    switchLabel.value.click();
+}
+
+defineExpose({clickOnSwitch});
 </script>
 
 <template>
-    <label :for="ID_CHECKBOX" class="toggler">
+    <label ref="switchLabel" :for="ID_CHECKBOX" class="toggler">
         <input type="checkbox" :id="ID_CHECKBOX" class="checkbox" @change="doChange" v-model="isChecked">
         <span class="ball"></span>
         <span class="opt1" v-html="props.opt1"></span>

@@ -104,6 +104,7 @@ const hasTurbo             = ref(false);
 const zanmatoPath          = ref(0);
 const yojimbo              = ref(0);
 const yojimboAction        = ref(null);
+const switchItem = ref(null);
 const reloadData           = () => {
     const guilsValue          = _.clamp(guils.value, guilsSettings.min, guilsSettings.max);
     const guilsRemainingValue = _.clamp(guilsRemaining.value, guilsSettings.min, guilsSettings.max);
@@ -111,7 +112,7 @@ const reloadData           = () => {
     const zanmatoLevelValue   = _.clamp(zanmatoLevel.value, zanmatoLevelSettings.min, zanmatoLevelSettings.max);
     const randomValueValue    = _.clamp(randomValue.value, randomValueSettings.min, randomValueSettings.max);
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([guilsValue, affinityValue, zanmatoLevelValue, randomValueValue, hasTurbo.value, guilsRemainingValue]));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([guilsValue, affinityValue, zanmatoLevelValue, randomValueValue, hasTurbo.value, guilsRemainingValue, zanmatoPath.value]));
 
     yojimbo.value       = zanmatoPaths[zanmatoPath.value].getValue(guilsValue, affinityValue, zanmatoLevelValue, randomValueValue, hasTurbo.value, guilsRemainingValue);
     yojimboAction.value = getAction(yojimbo.value);
@@ -134,6 +135,13 @@ const reset                = () => {
     hasTurbo.value       = false;
     reloadData();
 }
+const setZanmatoPath = val => {
+    if (val === zanmatoPath.value) {
+        return;
+    }
+
+    switchItem.value.clickOnSwitch();
+}
 
 onMounted(() => {
     let localStorageData = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -146,6 +154,11 @@ onMounted(() => {
         randomValue.value    = localStorageData[3];
         hasTurbo.value       = localStorageData[4];
         guilsRemaining.value = localStorageData[5];
+        zanmatoPath.value    = localStorageData[6];
+
+        if (zanmatoPath.value === 1) {
+            switchItem.value.clickOnSwitch();
+        }
     }
 
     reloadData();
@@ -159,12 +172,27 @@ onMounted(() => {
             <div class="space-y-3">
                 <h1 class="text-2xl text-center">Yojimbo calculator</h1>
 
-                <div class="flex justify-between items-center space-x-3">
-                    <div class="w-min sm:w-max">Sconfiggere nemici forti</div>
-                    <div>
-                        <Switch :default-value="!!zanmatoPath" :on-change="changeZanmatoPath"/>
+                <div class="sm:hidden">
+                    <hr>
+                    <div class="flex justify-around p-3">
+                        <div class="text-center">
+                            <div>Valore:</div>
+                            <div class="text-4xl text-orange-400">{{ yojimbo }}</div>
+                        </div>
+                        <div class="text-center">
+                            <div>Azione:</div>
+                            <div class="text-xl text-orange-400">{{ yojimboAction }}</div>
+                        </div>
                     </div>
-                    <div class="w-min sm:w-max">Addestrarmi come invocatrice/Potenziarmi sterminando mostri</div>
+                    <hr>
+                </div>
+
+                <div class="flex justify-between items-center space-x-3">
+                    <div class="w-min sm:w-max" @click="setZanmatoPath(0)">Sconfiggere nemici forti</div>
+                    <div>
+                        <Switch ref="switchItem" :default-value="!!zanmatoPath" :on-change="changeZanmatoPath"/>
+                    </div>
+                    <div class="w-min sm:w-max" @click="setZanmatoPath(1)">Addestrarmi come invocatrice/Potenziarmi sterminando mostri</div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -174,7 +202,7 @@ onMounted(() => {
                             <select id="guils0" class="block p-2 text-black rounded w-full"
                                     v-model="guils" @change="reloadData"
                             >
-<!--                                <option value="">Guil pagati</option>-->
+                                <!--                                <option value="">Guil pagati</option>-->
                                 <option v-for="g in guilsLowest" :value="g">{{ g }}</option>
                             </select>
                         </div>
@@ -243,8 +271,7 @@ onMounted(() => {
                         </div>
                     </div>
                     <div class="flex flex-col">
-                        <div class="text-center space-y-4 mb-4 mt-4 sm:mt-0">
-                            <hr class="sm:hidden">
+                        <div class="text-center space-y-4 mb-4 mt-0 hidden sm:block">
                             <div>
                                 <div>Valore:</div>
                                 <div class="text-4xl text-orange-400">{{ yojimbo }}</div>
