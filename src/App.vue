@@ -37,14 +37,14 @@ const motivations          = [
 ];
 const guilsLowest          = motivations.map(m => m.from);
 const affinityChanges      = [
-    {label: 'Non pagato', value: -20},
-    {label: 'Yojimbo muore', value: -10},
-    {label: 'Yojimbo richiamato', value: -3},
-    {label: 'Attacca con Daigorou', value: -1},
-    {label: 'Attacca con Kozuka', value: 0},
-    {label: 'Usa Wakizashi su un solo nemico', value: 1},
-    {label: 'Usa Wakizashi su tutti gli avversari', value: 3},
     {label: 'Zanmato!', value: 4},
+    {label: 'Usa Wakizashi su tutti gli avversari', value: 3},
+    {label: 'Usa Wakizashi su un solo nemico', value: 1},
+    {label: 'Attacca con Kozuka', value: 0},
+    {label: 'Attacca con Daigorou', value: -1},
+    {label: 'Yojimbo richiamato', value: -3},
+    {label: 'Yojimbo muore', value: -10},
+    {label: 'Non pagato', value: -20},
 ];
 const guilsSettings        = {min: 0, max: _.last(motivations).to};
 const actions              = [
